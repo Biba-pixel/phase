@@ -1414,15 +1414,33 @@ ul { list-style: none; }
     --section-y: clamp(3.6rem, 11vw, 5rem);
   }
 
-  /* Hero: keep the wordmark grand but guaranteed to fit, with room to breathe */
-  .hero__inner { padding-block: 7rem 5.5rem; }
-  .hero__word { font-size: clamp(3.6rem, 22vw, 6rem); }
+  /* Hero: keep the wordmark grand but guaranteed to fit, with room to breathe.
+     Tighter top/bottom padding so content never reaches the scroll cue on
+     short phones. */
+  .hero__inner { padding-block: 6rem 3rem; }
+  .hero__word { font-size: clamp(3.4rem, 21vw, 6rem); }
   .hero__sub { max-width: 36ch; }
   .hero__cta { width: 100%; }
   .hero__cta .btn { width: 100%; max-width: 340px; }
 
+  /* The scroll cue is decorative; on short mobile screens it collided with the
+     stacked CTA buttons. Hide it on mobile — the page is obviously scrollable. */
+  .hero__scroll { display: none; }
+
   /* Full-width, comfortably tall primary buttons */
   .btn { padding: 1rem 1.8rem; }
+
+  /* Pricing "Most loved" badge: flow as a pill ABOVE the title instead of
+     absolute top-right (which overlapped the heading on narrow screens). */
+  .offer { padding-top: clamp(1.6rem, 5vw, 2.4rem); }
+  .offer__badge {
+    position: static;
+    align-self: flex-start;
+    display: inline-flex;
+    margin-bottom: 1rem;
+  }
+  .offer { display: flex; flex-direction: column; align-items: flex-start; }
+  .offer__list { align-self: stretch; }
 
   /* Contact rows: stack icon over text is unnecessary — keep row but roomy */
   .cmethod { padding: 1.15rem 1.2rem; }
