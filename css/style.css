@@ -97,8 +97,18 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+  /* Mobile: branded tap flash instead of the default blue, no text inflation */
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--sage) 30%, transparent);
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 body.is-locked { overflow: hidden; }
+
+/* Tappable elements: comfortable touch behaviour on mobile */
+a, button, [role="button"], input, summary {
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--terracotta) 26%, transparent);
+  touch-action: manipulation; /* removes the 300ms tap delay */
+}
 
 h1, h2, h3, h4, h5 {
   font-family: "Fraunces", ui-serif, Georgia, serif;
@@ -1381,4 +1391,79 @@ ul { list-style: none; }
   .js .reveal, .js .mask > * { opacity: 1 !important; transform: none !important; filter: none !important; }
   .hero__word .ch, .preloader__word span { transform: none !important; opacity: 1 !important; }
   .cursor, .cursor-dot { display: none !important; }
+}
+
+/* ---------------------------------------------------------------------
+   22. Mobile optimization (mobile-first audience)
+   Notched-phone safe areas, comfortable touch targets (WCAG 2.5.5 ≥44px),
+   tighter rhythm, and crisper hero on small screens.
+   --------------------------------------------------------------------- */
+
+/* Respect notch / home-indicator safe areas */
+.nav { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+.menu__list { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+
+@media (max-width: 600px) {
+  :root {
+    /* a touch more breathing room on the sides, shorter section gaps */
+    --gutter: clamp(1.15rem, 4vw, 1.6rem);
+    --section-y: clamp(3.6rem, 11vw, 5rem);
+  }
+
+  /* Hero: keep the wordmark grand but guaranteed to fit, with room to breathe */
+  .hero__inner { padding-block: 7rem 5.5rem; }
+  .hero__word { font-size: clamp(3.6rem, 22vw, 6rem); }
+  .hero__sub { max-width: 36ch; }
+  .hero__cta { width: 100%; }
+  .hero__cta .btn { width: 100%; max-width: 340px; }
+
+  /* Full-width, comfortably tall primary buttons */
+  .btn { padding: 1rem 1.8rem; }
+
+  /* Contact rows: stack icon over text is unnecessary — keep row but roomy */
+  .cmethod { padding: 1.15rem 1.2rem; }
+  .cmethod__t strong { font-size: var(--t-base); word-break: break-word; }
+
+  /* Schedule note + CTA stack full width */
+  .schedule__note { flex-direction: column; align-items: flex-start; }
+  .schedule__note .btn { width: 100%; }
+
+  /* Pricing CTA + method CTA full width */
+  .method__cta { flex-direction: column; align-items: stretch; }
+  .method__cta .btn { width: 100%; }
+
+  /* Section headings shouldn't crowd the screen edges */
+  .phases__head h2, .contact h2, .method__head h2 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+}
+
+/* Footer: the most tap-dense area — give every link a 44px target.
+   Applies a bit wider so tablets benefit too. */
+@media (max-width: 760px) {
+  .footer__top { gap: 2.4rem; }
+  .footer__col ul { gap: 0.2rem; }
+  .footer__col li { display: flex; }
+  .footer__col li a,
+  .footer__bottom a.link-u {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 0.35rem;
+  }
+  .footer__bottom { gap: 1.2rem; flex-direction: column; align-items: flex-start; }
+  .footer__social { gap: 1rem; }
+  .footer__social a { width: 48px; height: 48px; }
+  /* honour the home-indicator inset at the very bottom */
+  .footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)); }
+}
+
+/* Larger phones / small tablets: 2-col footer reads better than 1 */
+@media (min-width: 480px) and (max-width: 760px) {
+  .footer__top { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+/* Fine-pointer-only flourishes off on touch (already gated, but belt-and-braces) */
+@media (hover: none) {
+  .cursor, .cursor-dot { display: none !important; }
+  body, body a, body button { cursor: auto !important; }
 }
