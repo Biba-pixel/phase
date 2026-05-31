@@ -535,6 +535,10 @@ ul { list-style: none; }
   font-family: "Fraunces", serif;
   font-size: clamp(2.2rem, 9vw, 4rem);
   line-height: 1.15;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), color 0.3s;
