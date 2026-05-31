@@ -1471,3 +1471,19 @@ ul { list-style: none; }
   .cursor, .cursor-dot { display: none !important; }
   body, body a, body button { cursor: auto !important; }
 }
+
+/* ---------------------------------------------------------------------
+   23. Touch hit-area top-ups (mobile-first audience, WCAG 2.5.5 ≥44px)
+   Bumps the last few small links to a comfortable tap size. Vertical
+   padding on inline links extends the tappable area; only applied on
+   touch devices so desktop layout is untouched.
+   --------------------------------------------------------------------- */
+.nav__brand { min-height: 44px; }
+
+@media (hover: none) {
+  /* standalone text links (email in Method, @phase.lb in gallery, etc.) */
+  .link-u { padding-block: 0.55rem; }
+  /* footer links already get their 44px from rule §22 — avoid stacking padding */
+  .footer__col li a.link-u,
+  .footer__bottom a.link-u { padding-block: 0; }
+}
