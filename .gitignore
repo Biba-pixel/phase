@@ -2,6 +2,8 @@
 .claude/
 _plugin_probe.txt
 *.log
+*.cmd
+Login to GitHub.cmd
 
 # Source policy PDFs (their content already lives in refund.html / complaints.html)
 *.pdf
