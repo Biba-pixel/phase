@@ -1,0 +1,6 @@
+# Dev-only + source files that shouldn't ship to production
+.claude/
+*.pdf
+_plugin_probe.txt
+assets/img/README.txt
+README.md

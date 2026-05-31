@@ -1,0 +1,16 @@
+# Dev-only / local tooling
+.claude/
+_plugin_probe.txt
+*.log
+
+# Source policy PDFs (their content already lives in refund.html / complaints.html)
+*.pdf
+
+# OS cruft
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

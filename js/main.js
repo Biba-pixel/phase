@@ -1,0 +1,292 @@
+/* =====================================================================
+   PHASE — interactions & motion
+   Base behaviour uses no dependencies (IntersectionObserver).
+   GSAP/ScrollTrigger are treated as progressive enhancement.
+   ===================================================================== */
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var reduced = root.classList.contains("reduced");
+  var hasGSAP = typeof window.gsap !== "undefined";
+  if (hasGSAP && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  /* ----------------------------------------------------------------
+     Helpers
+     ---------------------------------------------------------------- */
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function on(el, ev, fn, opt) { if (el) el.addEventListener(ev, fn, opt || false); }
+
+  /* ----------------------------------------------------------------
+     Year
+     ---------------------------------------------------------------- */
+  var yearEl = $("#year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ----------------------------------------------------------------
+     Preloader → hero intro
+     ---------------------------------------------------------------- */
+  var preloader = $("#preloader");
+
+  function playHeroIntro() {
+    var chars = $all(".hero__word .ch");
+    var bits = $all(".hero__tag, .hero__sub, .hero__cta");
+    if (reduced || !hasGSAP) {
+      chars.forEach(function (c) { c.style.transform = "translateY(0)"; });
+      bits.forEach(function (b) { b.style.opacity = 1; b.style.transform = "none"; });
+      return;
+    }
+    var tl = gsap.timeline();
+    tl.to(chars, { yPercent: -100, duration: 1.1, ease: "power4.out", stagger: 0.07 }, 0)
+      .from(bits, { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.13 }, 0.5);
+  }
+
+  function finishPreloader() {
+    if (!preloader) { playHeroIntro(); return; }
+    if (reduced || !hasGSAP) {
+      preloader.style.display = "none";
+      preloader.classList.add("is-done");
+      playHeroIntro();
+      return;
+    }
+    var letters = $all(".preloader__word span");
+    var bar = $(".preloader__bar i");
+    var tl = gsap.timeline({
+      onComplete: function () {
+        preloader.classList.add("is-done");
+        preloader.style.display = "none";
+        playHeroIntro();
+      }
+    });
+    tl.to(letters, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.08 })
+      .to(bar, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, "-=0.3")
+      .to(preloader, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "+=0.15");
+  }
+
+  // Kick preloader after load (with a safety timeout so it never sticks)
+  var started = false;
+  function start() { if (started) return; started = true; finishPreloader(); }
+  on(window, "load", start);
+  setTimeout(start, 2600);
+
+  /* ----------------------------------------------------------------
+     Reveal on scroll (IntersectionObserver — reliable base layer)
+     ---------------------------------------------------------------- */
+  var revealEls = $all(".reveal, .mask, [data-reveal]");
+  if ("IntersectionObserver" in window && !reduced) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var delay = parseInt(el.getAttribute("data-delay") || "0", 10);
+          if (delay) el.style.transitionDelay = delay + "ms";
+          el.classList.add("is-visible");
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+  }
+  // data-reveal hero bits are handled by the GSAP intro; ensure fallback
+  $all("[data-reveal]").forEach(function (el) {
+    el.style.opacity = el.style.opacity || "";
+  });
+
+  /* ----------------------------------------------------------------
+     Nav: scrolled state + scroll progress
+     ---------------------------------------------------------------- */
+  var nav = $("#nav");
+  var progress = $("#progress");
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      if (nav) nav.classList.toggle("is-scrolled", y > 60);
+      if (progress) {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+      }
+      ticking = false;
+    });
+  }
+  on(window, "scroll", onScroll, { passive: true });
+  on(window, "resize", onScroll, { passive: true });
+  onScroll();
+
+  /* ----------------------------------------------------------------
+     Mobile menu
+     ---------------------------------------------------------------- */
+  var toggle = $("#navToggle");
+  var menu = $("#menu");
+  function setMenu(open) {
+    if (!menu || !nav || !toggle) return;
+    menu.classList.toggle("is-open", open);
+    nav.classList.toggle("is-open", open);
+    document.body.classList.toggle("is-locked", open);
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  on(toggle, "click", function () { setMenu(!menu.classList.contains("is-open")); });
+  $all(".menu__list a").forEach(function (a) { on(a, "click", function () { setMenu(false); }); });
+  on(document, "keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+
+  /* ----------------------------------------------------------------
+     Smooth anchor scrolling (accounts for fixed nav)
+     ---------------------------------------------------------------- */
+  $all('a[href^="#"]').forEach(function (link) {
+    on(link, "click", function (e) {
+      var id = link.getAttribute("href");
+      if (!id || id === "#" || id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top: top, behavior: reduced ? "auto" : "smooth" });
+    });
+  });
+
+  /* ----------------------------------------------------------------
+     GSAP enhancements (parallax, hero quilt, marquee safety)
+     ---------------------------------------------------------------- */
+  if (hasGSAP && window.ScrollTrigger && !reduced) {
+    // Hero quilt drift + fade on scroll
+    var heroQuilt = $("#heroQuilt");
+    if (heroQuilt) {
+      gsap.to(heroQuilt, {
+        yPercent: 18, scale: 1.1, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+      });
+    }
+    gsap.to(".hero__inner", {
+      yPercent: 14, opacity: 0.5, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+    });
+
+    // Floating orbs parallax
+    $all(".orb").forEach(function (orb, i) {
+      gsap.to(orb, {
+        yPercent: (i % 2 === 0 ? -28 : 24), ease: "none",
+        scrollTrigger: { trigger: orb.closest("section") || orb, start: "top bottom", end: "bottom top", scrub: true }
+      });
+    });
+
+    // Brand badge gentle parallax
+    var badge = $(".philosophy__badge");
+    if (badge) {
+      gsap.fromTo(badge, { yPercent: 8 }, {
+        yPercent: -8, ease: "none",
+        scrollTrigger: { trigger: badge, start: "top bottom", end: "bottom top", scrub: true }
+      });
+    }
+
+    // Section heading subtle rise
+    $all(".phases__head h2, .contact h2, .method__head h2").forEach(function (h) {
+      gsap.from(h, {
+        yPercent: 18, opacity: 0.4, ease: "none",
+        scrollTrigger: { trigger: h, start: "top 92%", end: "top 50%", scrub: true }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     Magnetic buttons (fine pointer only)
+     ---------------------------------------------------------------- */
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (finePointer && !reduced) {
+    $all("[data-magnetic]").forEach(function (el) {
+      var strength = 0.4;
+      on(el, "mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * strength;
+        var y = (e.clientY - r.top - r.height / 2) * strength;
+        el.style.transform = "translate(" + x + "px," + y + "px)";
+      });
+      on(el, "mouseleave", function () { el.style.transform = "translate(0,0)"; });
+    });
+
+    // Card tilt for offers
+    $all("[data-magnetic-card]").forEach(function (card) {
+      on(card, "mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -6;
+        var ry = ((e.clientX - r.left) / r.width - 0.5) * 6;
+        card.style.transform = "translateY(-8px) perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+      });
+      on(card, "mouseleave", function () { card.style.transform = ""; });
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     Custom cursor (fine pointer only)
+     ---------------------------------------------------------------- */
+  if (finePointer && !reduced) {
+    var cursor = $(".cursor");
+    var dot = $(".cursor-dot");
+    if (cursor && dot) {
+      document.body.classList.add("has-cursor");
+      var cx = 0, cy = 0, tx = 0, ty = 0;
+      on(window, "mousemove", function (e) {
+        tx = e.clientX; ty = e.clientY;
+        dot.style.transform = "translate(" + tx + "px," + ty + "px) translate(-50%,-50%)";
+      });
+      (function loop() {
+        cx += (tx - cx) * 0.18;
+        cy += (ty - cy) * 0.18;
+        cursor.style.transform = "translate(" + cx + "px," + cy + "px) translate(-50%,-50%)";
+        requestAnimationFrame(loop);
+      })();
+      $all("a, button, [data-magnetic], [data-magnetic-card]").forEach(function (el) {
+        on(el, "mouseenter", function () { cursor.classList.add("is-hover"); });
+        on(el, "mouseleave", function () { cursor.classList.remove("is-hover"); });
+      });
+      on(document, "mouseleave", function () { cursor.style.opacity = 0; dot.style.opacity = 0; });
+      on(document, "mouseenter", function () { cursor.style.opacity = 1; dot.style.opacity = 1; });
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     Map facade — load Google Map only on click (perf + privacy)
+     ---------------------------------------------------------------- */
+  var mapFacade = $("#mapFacade");
+  if (mapFacade) {
+    on(mapFacade, "click", function () {
+      var src = mapFacade.getAttribute("data-map");
+      var iframe = document.createElement("iframe");
+      iframe.setAttribute("title", "PHASE studio location in Jbeil, Lebanon");
+      iframe.setAttribute("src", src);
+      iframe.setAttribute("loading", "lazy");
+      iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+      iframe.setAttribute("allowfullscreen", "");
+      var parent = mapFacade.parentNode;
+      parent.replaceChild(iframe, mapFacade);
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     Active section in nav
+     ---------------------------------------------------------------- */
+  var sections = $all("main section[id]");
+  var navLinks = $all(".nav__links a");
+  if ("IntersectionObserver" in window && navLinks.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute("id");
+          navLinks.forEach(function (a) {
+            var match = a.getAttribute("href") === "#" + id;
+            a.style.opacity = match ? "1" : "";
+            a.style.fontWeight = match ? "700" : "";
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+})();

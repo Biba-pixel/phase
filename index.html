@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHASE — Breath. Move. Heal. | Pilates &amp; Somatic Movement · Jbeil, Lebanon</title>
+  <meta name="description" content="PHASE is a sanctuary for movement in Jbeil, Lebanon — Reformer &amp; Mat Pilates, somatic regulation, and the PHASE Method™ certification by Elise El Khoury, PT. Breath. Move. Heal." />
+  <meta name="theme-color" content="#0f1f18" />
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+  <link rel="apple-touch-icon" href="assets/img/logo.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PHASE — Breath. Move. Heal." />
+  <meta property="og:description" content="A sanctuary for movement in Jbeil, Lebanon. Reformer &amp; Mat Pilates, somatic regulation, and the PHASE Method™ certification." />
+  <meta property="og:image" content="assets/img/logo.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- No-flash: mark JS available + reduced-motion before paint -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      try {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("reduced");
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__word" aria-label="PHASE">
+        <span>P</span><span>H</span><span>A</span><span>S</span><span>E</span>
+      </div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Scroll progress -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="wrap-wide wrap nav__inner">
+      <a href="#top" class="nav__brand" aria-label="PHASE home">
+        <img src="assets/img/logo.png" alt="" class="nav__badge" />
+        PHASE
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#philosophy">Philosophy</a>
+        <a href="#phases">Classes</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#method">Method™</a>
+        <a href="#about">About</a>
+      </nav>
+      <a href="#contact" class="btn nav__cta"><span>Book a Session</span></a>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__bg quilt" aria-hidden="true"></div>
+    <nav class="menu__list" aria-label="Mobile">
+      <a href="#philosophy">Philosophy</a>
+      <a href="#phases">Classes</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#method">Method™</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="menu__meta">Jbeil, Lebanon &nbsp;·&nbsp; @phase.lb</p>
+  </div>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero grain" aria-label="Introduction">
+      <div class="hero__photo" id="heroPhoto" aria-hidden="true"></div>
+      <div class="hero__tint" aria-hidden="true"></div>
+      <div class="hero__quilt quilt" id="heroQuilt" aria-hidden="true"></div>
+      <div class="hero__vignette" aria-hidden="true"></div>
+
+      <div class="hero__inner wrap">
+        <p class="eyebrow hero__eyebrow">Pilates · Somatic Movement · Jbeil</p>
+        <h1 class="hero__word" aria-label="PHASE">
+          <span class="hero__breathe">
+            <span class="ch">P</span><span class="ch">H</span><span class="ch">A</span><span class="ch">S</span><span class="ch">E</span>
+          </span>
+        </h1>
+        <p class="hero__tag" data-reveal>
+          <b>Breath</b><span class="dot">·</span><b>Move</b><span class="dot">·</span><b>Heal</b>
+        </p>
+        <p class="hero__sub" data-reveal>
+          Cause everything is just a phase. A sanctuary for movement where breath,
+          mobility, and nervous-system regulation meet — from burnout to flow,
+          from stillness to fire.
+        </p>
+        <div class="hero__cta" data-reveal>
+          <a href="#phases" class="btn btn-primary btn-arrow" data-magnetic>
+            <span>Explore Classes
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+          <a href="#contact" class="btn btn-ghost" data-magnetic style="--btn-fg:var(--off-white);border-color:rgba(245,240,228,.4)"><span>Book a Session</span></a>
+        </div>
+      </div>
+
+      <a href="#philosophy" class="hero__scroll" aria-label="Scroll down">
+        Scroll <i></i>
+      </a>
+    </section>
+
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Breath <em class="star">✦</em> Move <em class="star">✦</em> Heal <em class="star">✦</em> Reset <em class="star">✦</em> Core <em class="star">✦</em> Flow <em class="star">✦</em>&nbsp;</span>
+        <span class="marquee__item">Breath <em class="star">✦</em> Move <em class="star">✦</em> Heal <em class="star">✦</em> Reset <em class="star">✦</em> Core <em class="star">✦</em> Flow <em class="star">✦</em>&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ===================== PHILOSOPHY ===================== -->
+    <section class="section philosophy" id="philosophy" aria-labelledby="philosophy-h">
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="orb orb-2" aria-hidden="true"></div>
+      <div class="wrap philosophy__grid">
+        <div>
+          <p class="eyebrow reveal">Our Philosophy</p>
+          <h2 class="philosophy__statement reveal" id="philosophy-h">
+            Your body isn't working <em>against</em> you — it's guiding you.
+          </h2>
+          <p class="lede reveal" data-delay="120">
+            PHASE is more than a studio. It's a space to come home to yourself.
+            Through intentional movement, conscious breath, and somatic awareness,
+            we help you release tension, rebuild strength, and move through every
+            phase of your life with calm and clarity.
+          </p>
+          <p class="lede reveal" data-delay="220" style="margin-top:1.2rem">
+            Calm is your superpower. Show up for yourself.
+          </p>
+        </div>
+        <div class="philosophy__badge reveal from-scale" data-delay="150">
+          <span class="ring" aria-hidden="true"></span>
+          <img src="assets/img/logo.png" alt="The PHASE brand mark — a serif wordmark on a quilted emerald field" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE PHASES (CLASSES) ===================== -->
+    <section class="section phases grain" id="phases" aria-labelledby="phases-h">
+      <div class="wrap-wide wrap">
+        <div class="phases__head">
+          <p class="eyebrow reveal">In the Studio</p>
+          <h2 class="reveal" id="phases-h">Find your phase</h2>
+          <p class="lede reveal" style="margin:1.2rem auto 0;text-align:center;color:#cdd6c7">
+            Four ways to move, each tuned to where you are today. Reformer-based and mat practice,
+            guided with intention.
+          </p>
+        </div>
+
+        <div class="phases__list">
+          <article class="phase-card reveal" style="--accent2:var(--sage-light)">
+            <div class="phase-card__num">01</div>
+            <div class="phase-card__body">
+              <p class="phase-card__tag">Restore · Mobility · Breath</p>
+              <h3>Reset Phase</h3>
+              <p>A slower, restorative practice. Release built-up tension, open the body,
+                and down-regulate the nervous system through guided breath and gentle mobility.
+                The reset your week is asking for.</p>
+            </div>
+            <div class="phase-card__arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </div>
+          </article>
+
+          <article class="phase-card reveal" data-delay="80" style="--accent2:var(--terracotta-soft)">
+            <div class="phase-card__num">02</div>
+            <div class="phase-card__body">
+              <p class="phase-card__tag">Strength · Stability · Control</p>
+              <h3>Core Phase</h3>
+              <p>Your core is your powerhouse. Protect it, train it, and it will carry you.
+                A focused, strengthening session building deep stability, control, and
+                full-body coordination.</p>
+            </div>
+            <div class="phase-card__arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </div>
+          </article>
+
+          <article class="phase-card reveal" data-delay="160" style="--accent2:var(--emerald-bright)">
+            <div class="phase-card__num">03</div>
+            <div class="phase-card__body">
+              <p class="phase-card__tag">Mat · Flow · Alignment</p>
+              <h3>Mat Pilates</h3>
+              <p>Classical Pilates on the mat — precise, flowing, and grounding. Build
+                lean strength and body awareness using your own resistance, breath, and
+                intentional alignment.</p>
+            </div>
+            <div class="phase-card__arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </div>
+          </article>
+
+          <article class="phase-card reveal" data-delay="240" style="--accent2:var(--sage)">
+            <div class="phase-card__num">04</div>
+            <div class="phase-card__body">
+              <p class="phase-card__tag">Signature · Complete · Balanced</p>
+              <h3>Reset + Core</h3>
+              <p>The signature PHASE experience. The restorative release of Reset woven
+                together with the strength of Core — a complete, balanced session that
+                leaves you steady, open, and strong.</p>
+            </div>
+            <div class="phase-card__arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCHEDULE ===================== -->
+    <section class="section schedule" id="schedule" aria-labelledby="schedule-h">
+      <div class="wrap-wide wrap">
+        <div class="schedule__head">
+          <div>
+            <p class="eyebrow reveal">Weekly Rhythm</p>
+            <h2 class="reveal" id="schedule-h">The week at PHASE</h2>
+          </div>
+          <p class="lede reveal" data-delay="100" style="max-width:42ch">
+            Our regular weekly flow of classes. Spaces are limited and kept intentionally
+            small — reserve yours ahead.
+          </p>
+        </div>
+
+        <div class="week">
+          <article class="day reveal">
+            <h3 class="day__name">Monday</h3>
+            <ul class="day__cls">
+              <li class="slot" style="--c:var(--sage)">
+                <span class="slot__time">7:30 PM</span>
+                <span class="slot__name">Reset + Core</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="day reveal" data-delay="60">
+            <h3 class="day__name">Tuesday</h3>
+            <ul class="day__cls">
+              <li class="slot" style="--c:var(--sage-light)">
+                <span class="slot__time">9:00 AM</span>
+                <span class="slot__name">Reset Phase</span>
+              </li>
+              <li class="slot" style="--c:var(--terracotta)">
+                <span class="slot__time">10:00 AM</span>
+                <span class="slot__name">Core Phase</span>
+              </li>
+              <li class="slot" style="--c:var(--emerald-bright)">
+                <span class="slot__time">7:00 PM</span>
+                <span class="slot__name">Mat Pilates</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="day reveal" data-delay="120">
+            <h3 class="day__name">Wednesday</h3>
+            <ul class="day__cls">
+              <li class="slot" style="--c:var(--sage)">
+                <span class="slot__time">7:30 PM</span>
+                <span class="slot__name">Reset + Core</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="day reveal" data-delay="180">
+            <h3 class="day__name">Thursday</h3>
+            <ul class="day__cls">
+              <li class="slot" style="--c:var(--sage-light)">
+                <span class="slot__time">9:00 AM</span>
+                <span class="slot__name">Reset Phase</span>
+              </li>
+              <li class="slot" style="--c:var(--terracotta)">
+                <span class="slot__time">10:00 AM</span>
+                <span class="slot__name">Core Phase</span>
+              </li>
+              <li class="slot" style="--c:var(--emerald-bright)">
+                <span class="slot__time">7:00 PM</span>
+                <span class="slot__name">Mat Pilates</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="day day--rest reveal" data-delay="240">
+            <h3 class="day__name">Friday</h3>
+            <p class="day__rest">Rest &amp; restore</p>
+          </article>
+
+          <article class="day reveal" data-delay="300">
+            <h3 class="day__name">Saturday</h3>
+            <ul class="day__cls">
+              <li class="slot" style="--c:var(--sage-light)">
+                <span class="slot__time">10:00 AM</span>
+                <span class="slot__name">Reset Phase</span>
+              </li>
+              <li class="slot" style="--c:var(--terracotta)">
+                <span class="slot__time">11:00 AM</span>
+                <span class="slot__name">Core Phase</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="day day--rest reveal" data-delay="360">
+            <h3 class="day__name">Sunday</h3>
+            <p class="day__rest">Rest &amp; restore</p>
+          </article>
+        </div>
+
+        <div class="legend reveal">
+          <span><i style="background:var(--sage-light)"></i> Reset Phase</span>
+          <span><i style="background:var(--terracotta)"></i> Core Phase</span>
+          <span><i style="background:var(--emerald-bright)"></i> Mat Pilates</span>
+          <span><i style="background:var(--sage)"></i> Reset + Core</span>
+        </div>
+
+        <div class="schedule__note reveal">
+          <p>Times reflect our usual weekly rhythm and can shift on holidays. Message us
+            to confirm this week's classes and hold your spot.</p>
+          <a href="https://wa.me/96178999387?text=Hi%20PHASE!%20I'd%20like%20to%20confirm%20this%20week's%20schedule%20and%20book%20a%20spot." target="_blank" rel="noopener" class="btn"><span>Reserve your spot</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRICING / OFFERINGS ===================== -->
+    <section class="section pricing" id="pricing" aria-labelledby="pricing-h">
+      <div class="wrap pricing__head">
+        <p class="eyebrow center reveal" style="justify-content:center">Membership &amp; Drop-ins</p>
+        <h2 class="reveal" id="pricing-h">Ways to practice</h2>
+        <p class="reveal" data-delay="100">Single sessions, monthly packs, and private guidance.
+          Rates are kept current and personal — message us for today's pricing and any ongoing offers.</p>
+      </div>
+
+      <div class="wrap offers">
+        <article class="offer reveal" data-magnetic-card>
+          <div class="offer__texture quilt" aria-hidden="true"></div>
+          <h3>Reformer · Reset &amp; Core</h3>
+          <p class="offer__sub">Studio Reformer Classes</p>
+          <ul class="offer__list">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Single session &amp; multi-class packs</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Reset Phase · Core Phase · Reset + Core</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Small groups, guided with intention</li>
+          </ul>
+          <p class="offer__price">Pricing on request <small>— DM for current rates</small></p>
+        </article>
+
+        <article class="offer featured reveal" data-delay="100" data-magnetic-card>
+          <span class="offer__badge">Most loved</span>
+          <div class="offer__texture quilt" aria-hidden="true"></div>
+          <h3>Mat Pilates</h3>
+          <p class="offer__sub">Mat &amp; Flow Classes</p>
+          <ul class="offer__list">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Single session &amp; monthly packages</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Build lean strength &amp; body awareness</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Perfect for beginners &amp; regulars alike</li>
+          </ul>
+          <p class="offer__price">Pricing on request <small>— DM for current rates</small></p>
+        </article>
+      </div>
+
+      <div class="wrap" style="text-align:center;margin-top:clamp(2.5rem,5vw,3.5rem)">
+        <a href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener" class="btn reveal" data-magnetic><span>DM @phase.lb for pricing</span></a>
+      </div>
+    </section>
+
+    <!-- ===================== METHOD™ ===================== -->
+    <section class="section method grain" id="method" aria-labelledby="method-h">
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="wrap-wide wrap">
+        <div class="method__head">
+          <p class="eyebrow reveal">Train &amp; Certify</p>
+          <h2 class="reveal" id="method-h">The PHASE Method<span class="trademark">™</span></h2>
+          <p class="lede reveal" data-delay="100">
+            A neuro-mobility, breath &amp; somatic regulation system developed by Elise El Khoury, PT —
+            bridging evidence-based rehabilitation with holistic movement. Train as a practitioner
+            across three progressive levels, all the way to certified instructor.
+          </p>
+        </div>
+
+        <div class="levels">
+          <article class="level reveal">
+            <p class="level__step">Level One</p>
+            <div class="level__num">01</div>
+            <h3>Foundations</h3>
+            <p>Build a strong foundation through essential mobility and breathwork practices,
+              and the principles behind nervous-system regulation.</p>
+            <span class="level__line" aria-hidden="true"></span>
+          </article>
+          <article class="level reveal" data-delay="120">
+            <p class="level__step">Level Two</p>
+            <div class="level__num">02</div>
+            <h3>Applied Practice</h3>
+            <p>Apply techniques in real-world scenarios, adapt to individual client needs,
+              and integrate the method into your own practice.</p>
+            <span class="level__line" aria-hidden="true"></span>
+          </article>
+          <article class="level reveal" data-delay="240">
+            <p class="level__step">Level Three</p>
+            <div class="level__num">03</div>
+            <h3>Instructor Certification</h3>
+            <p>Master the system and become a certified PHASE Method™ instructor —
+              confident, credible, and ready to guide others.</p>
+            <span class="level__line" aria-hidden="true"></span>
+          </article>
+        </div>
+
+        <div class="method__cta">
+          <a href="https://wa.me/96178999387?text=Hi%20Elise!%20I'm%20interested%20in%20the%20PHASE%20Method%20training." target="_blank" rel="noopener" class="btn btn-ghost" data-magnetic><span>Enquire about training</span></a>
+          <a href="mailto:elise.ekhoury.pt@gmail.com?subject=PHASE%20Method%20Training" class="link-u" style="color:var(--sage-light)">elise.ekhoury.pt@gmail.com</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ELISE ===================== -->
+    <section class="section about" id="about" aria-labelledby="about-h">
+      <div class="wrap about__grid">
+        <div class="about__portrait reveal from-left">
+          <img src="assets/img/studio.jpg" loading="lazy" decoding="async"
+            alt="Inside the PHASE studio in Jbeil — white arched alcoves, the deep-green PHASE feature wall, hanging plants, and mats laid out for class" />
+          <span class="about__caption">The PHASE Studio · Jbeil</span>
+        </div>
+        <div>
+          <p class="eyebrow reveal">The Founder</p>
+          <h2 class="reveal" id="about-h">Elise El Khoury</h2>
+          <p class="about__role reveal">Physiotherapist · Founder of PHASE Method™</p>
+          <p class="reveal pretty">
+            Elise is a physiotherapist with advanced academic and clinical training in
+            pediatric rehabilitation, respiratory therapy, and psychosomatic approaches.
+            She created the PHASE Method™ to bridge the gap between evidence-based
+            rehabilitation and holistic movement.
+          </p>
+          <p class="reveal pretty" data-delay="80">
+            Her work is built on a simple belief: movement is a conversation with the body,
+            not a battle against it. At PHASE, every session blends clinical insight with
+            breath, mobility, and genuine care — so you leave feeling stronger, calmer,
+            and more at home in yourself.
+          </p>
+          <div class="about__creds reveal" data-delay="140">
+            <span>Physiotherapy</span>
+            <span>Pediatric Rehab</span>
+            <span>Respiratory Therapy</span>
+            <span>Psychosomatic Approaches</span>
+            <span>Somatic Movement</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALLERY ===================== -->
+    <section class="section gallery" id="gallery" aria-labelledby="gallery-h">
+      <div class="wrap-wide wrap">
+        <div class="gallery__head">
+          <p class="eyebrow reveal" style="justify-content:center">From the feed · @phase.lb</p>
+          <h2 class="reveal" id="gallery-h">Breath. Move. Heal.</h2>
+        </div>
+        <div class="grid-gallery">
+          <a class="tile reveal" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-4.jpg" loading="lazy" decoding="async" alt="PHASE — Self-healing tools you'll find in PHASE" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="60" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-1.jpg" loading="lazy" decoding="async" alt="PHASE — Techniques to liberate body tensions" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="120" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-2.jpg" loading="lazy" decoding="async" alt="PHASE — Inhale, Exhale: mindful breathing to regulate your nervous system" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="180" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-3.jpg" loading="lazy" decoding="async" alt="PHASE — You'll be listening, a lot: learning to hear your body" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-5.jpg" loading="lazy" decoding="async" alt="PHASE — If you listen to your body when it whispers, you won't have to hear it scream" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="60" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-6.jpg" loading="lazy" decoding="async" alt="PHASE — What we used to touch with fear" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="120" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-7.jpg" loading="lazy" decoding="async" alt="PHASE — To touch with love" />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+          <a class="tile reveal" data-delay="180" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <img src="assets/img/quote-8.jpg" loading="lazy" decoding="async" alt="PHASE — To heal is..." />
+            <i class="tile__ig" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></i>
+          </a>
+        </div>
+        <p class="reveal" style="text-align:center;color:var(--muted);margin-top:2rem;font-size:var(--t-sm)">
+          See more on Instagram —
+          <a href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener" class="link-u" style="color:var(--emerald-deep);font-weight:600">@phase.lb</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section contact grain" id="contact" aria-labelledby="contact-h">
+      <div class="contact__quilt quilt" aria-hidden="true"></div>
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="wrap contact__inner">
+        <p class="eyebrow reveal" style="justify-content:center;color:var(--sage-light)">Begin your phase</p>
+        <h2 class="reveal" id="contact-h">Let's move together</h2>
+        <p class="contact__lede reveal" data-delay="80">
+          Reserve a class, ask about pricing, or enquire about the PHASE Method™ training.
+          We'd love to hear from you.
+        </p>
+
+        <div class="contact__methods">
+          <a class="cmethod reveal" data-delay="40" href="https://wa.me/96178999387?text=Hi%20PHASE!%20I'd%20like%20to%20book%20a%20session." target="_blank" rel="noopener">
+            <span class="cmethod__ic">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23s8.23 3.69 8.23 8.23-3.69 8.25-8.23 8.25zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+            </span>
+            <span class="cmethod__t"><small>WhatsApp</small><strong>+961 78 999 387</strong></span>
+          </a>
+
+          <a class="cmethod reveal" data-delay="100" href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener">
+            <span class="cmethod__ic">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <span class="cmethod__t"><small>Instagram</small><strong>@phase.lb</strong></span>
+          </a>
+
+          <a class="cmethod reveal" data-delay="160" href="mailto:elise.ekhoury.pt@gmail.com">
+            <span class="cmethod__ic">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <span class="cmethod__t"><small>Email</small><strong>elise.ekhoury.pt@gmail.com</strong></span>
+          </a>
+
+          <a class="cmethod reveal" data-delay="220" href="https://maps.app.goo.gl/aHCnXBduhT3tnwxt6" target="_blank" rel="noopener">
+            <span class="cmethod__ic">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <span class="cmethod__t"><small>Find us</small><strong>Jbeil, Lebanon</strong></span>
+          </a>
+        </div>
+
+        <div class="contact__map reveal">
+          <button class="map-facade" id="mapFacade"
+            data-map="https://www.google.com/maps?q=Jbeil%2C%20Lebanon&output=embed"
+            aria-label="Load interactive map of Jbeil, Lebanon">
+            <span class="map-facade__quilt quilt" aria-hidden="true"></span>
+            <span class="map-facade__pin" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <span class="map-facade__t">
+              <strong>PHASE Studio · Jbeil, Lebanon</strong>
+              <small>Tap to load the interactive map</small>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap-wide wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="word">PHASE</div>
+          <p>A sanctuary for movement in Jbeil, Lebanon. Breath. Move. Heal. —
+            and the PHASE Method™ by Elise El Khoury, PT.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#philosophy" class="link-u">Philosophy</a></li>
+            <li><a href="#phases" class="link-u">Classes</a></li>
+            <li><a href="#schedule" class="link-u">Schedule</a></li>
+            <li><a href="#method" class="link-u">The Method™</a></li>
+            <li><a href="#about" class="link-u">About Elise</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Connect &amp; Policies</h4>
+          <ul>
+            <li><a href="https://wa.me/96178999387" target="_blank" rel="noopener" class="link-u">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener" class="link-u">Instagram</a></li>
+            <li><a href="mailto:elise.ekhoury.pt@gmail.com" class="link-u">Email</a></li>
+            <li><a href="refund.html" class="link-u">Refund Policy</a></li>
+            <li><a href="complaints.html" class="link-u">Complaints Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© <span id="year">2026</span> PHASE Method™ · Elise El Khoury, PT · All rights reserved.</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/phase.lb/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/96178999387" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+          </a>
+          <a href="mailto:elise.ekhoury.pt@gmail.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP (enhancement only — site works without it) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
