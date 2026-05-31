@@ -1481,9 +1481,14 @@ ul { list-style: none; }
 .nav__brand { min-height: 44px; }
 
 @media (hover: none) {
-  /* standalone text links (email in Method, @phase.lb in gallery, etc.) */
-  .link-u { padding-block: 0.55rem; }
-  /* footer links already get their 44px from rule §22 — avoid stacking padding */
+  /* standalone text links (email in Method, @phase.lb in gallery, etc.)
+     get a guaranteed 44px tap height via inline-flex + min-height. */
+  .link-u {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  /* footer links already get their 44px from rule §22 — keep them as-is */
   .footer__col li a.link-u,
-  .footer__bottom a.link-u { padding-block: 0; }
+  .footer__bottom a.link-u { min-height: 44px; }
 }
