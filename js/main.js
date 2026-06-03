@@ -75,6 +75,10 @@
      ---------------------------------------------------------------- */
   var revealEls = $all(".reveal, .mask, [data-reveal]");
   if ("IntersectionObserver" in window && !reduced) {
+    // Promote to a GPU layer ONLY while pending (about to animate). After the
+    // reveal completes we drop .reveal-pending so the layer is released —
+    // avoids dozens of permanent compositor layers (mobile memory win).
+    $all(".reveal").forEach(function (el) { el.classList.add("reveal-pending"); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -83,6 +87,10 @@
           if (delay) el.style.transitionDelay = delay + "ms";
           el.classList.add("is-visible");
           io.unobserve(el);
+          // release the compositor layer once the transition has run
+          var drop = function () { el.classList.remove("reveal-pending"); };
+          el.addEventListener("transitionend", drop, { once: true });
+          setTimeout(drop, 1400 + delay); // fallback if transitionend doesn't fire
         }
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
@@ -282,7 +290,7 @@
           navLinks.forEach(function (a) {
             var match = a.getAttribute("href") === "#" + id;
             a.style.opacity = match ? "1" : "";
-            a.style.fontWeight = match ? "700" : "";
+            a.style.fontWeight = match ? "600" : "";
           });
         }
       });
