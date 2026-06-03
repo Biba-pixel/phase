@@ -289,4 +289,53 @@
     }, { threshold: 0.5 });
     sections.forEach(function (s) { spy.observe(s); });
   }
+
+  /* ----------------------------------------------------------------
+     Mobile bottom tab bar: reveal past the hero + highlight active tab
+     ---------------------------------------------------------------- */
+  var tabbar = $("#tabbar");
+  if (tabbar) {
+    var tabs = $all(".tab", tabbar);
+    var hero = $(".hero");
+
+    // Reveal the bar once the hero is mostly scrolled past
+    var revealTab = function () {
+      var past = hero ? window.pageYOffset > hero.offsetHeight * 0.6 : window.pageYOffset > 400;
+      tabbar.classList.toggle("is-shown", past);
+    };
+    on(window, "scroll", revealTab, { passive: true });
+    revealTab();
+
+    // Map each content section to the tab that should light up for it
+    var sectionToTab = {
+      hero: null, philosophy: "phases", phases: "phases",
+      schedule: "schedule", pricing: "schedule",
+      method: "about", about: "about", gallery: "about", contact: "contact"
+    };
+    // Ordered list of sections we track, top→bottom
+    var tracked = sections.filter(function (s) {
+      return Object.prototype.hasOwnProperty.call(sectionToTab, s.getAttribute("id"));
+    });
+
+    var setActiveTab = function (want) {
+      tabs.forEach(function (t) {
+        t.classList.toggle("is-active", !!want && t.getAttribute("data-tab") === want);
+      });
+    };
+
+    // "Current section" = the last one whose top has scrolled above an anchor
+    // line ~40% down the viewport. Robust for very tall sections where a
+    // centre-band test lags. Runs on the existing throttled scroll loop.
+    var updateActiveTab = function () {
+      var anchor = window.innerHeight * 0.4;
+      var current = tracked[0];
+      for (var i = 0; i < tracked.length; i++) {
+        if (tracked[i].getBoundingClientRect().top <= anchor) current = tracked[i];
+        else break;
+      }
+      setActiveTab(current ? sectionToTab[current.getAttribute("id")] : null);
+    };
+    on(window, "scroll", updateActiveTab, { passive: true });
+    updateActiveTab();
+  }
 })();
