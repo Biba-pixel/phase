@@ -42,59 +42,95 @@
       .from(bits, { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.13 }, 0.5);
   }
 
-  function finishPreloader() {
-    if (!preloader) { playHeroIntro(); return; }
-    if (reduced || !hasGSAP) {
-      preloader.style.display = "none";
+  // Hide the preloader for good — pure DOM, never depends on GSAP firing.
+  var preloaderDone = false;
+  function hidePreloader() {
+    if (preloaderDone) return;
+    preloaderDone = true;
+    if (preloader) {
       preloader.classList.add("is-done");
-      playHeroIntro();
-      return;
+      preloader.style.transition = "opacity 0.5s ease, transform 0.7s cubic-bezier(0.76,0,0.24,1)";
+      preloader.style.transform = "translateY(-100%)";
+      preloader.style.opacity = "0";
+      // remove from layout after the transition so it can never block the page
+      setTimeout(function () { if (preloader) preloader.style.display = "none"; }, 750);
     }
-    var letters = $all(".preloader__word span");
-    var bar = $(".preloader__bar i");
-    var tl = gsap.timeline({
-      onComplete: function () {
-        preloader.classList.add("is-done");
-        preloader.style.display = "none";
-        playHeroIntro();
-      }
-    });
-    tl.to(letters, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.08 })
-      .to(bar, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, "-=0.3")
-      .to(preloader, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "+=0.15");
+    playHeroIntro();
   }
 
-  // Kick preloader after load (with a safety timeout so it never sticks)
+  function finishPreloader() {
+    if (!preloader || reduced || !hasGSAP) { hidePreloader(); return; }
+    var letters = $all(".preloader__word span");
+    var bar = $(".preloader__bar i");
+    // Animate the preloader in, then hand off to hidePreloader on complete.
+    // hidePreloader is ALSO called by a hard timeout below, so a stalled GSAP
+    // timeline can never leave the preloader stuck.
+    gsap.timeline({ onComplete: hidePreloader })
+      .to(letters, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.07 })
+      .to(bar, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, "-=0.25")
+      .to({}, { duration: 0.2 });
+  }
+
+  // Run the intro shortly after load; a hard backstop guarantees the preloader
+  // is gone within ~1.8s no matter what (GSAP present or not, load event or not).
   var started = false;
   function start() { if (started) return; started = true; finishPreloader(); }
+  // Always defer (never call synchronously) so the rest of this script — the
+  // reveal observer, nav, tab bar — finishes registering even if the preloader
+  // animation path throws or hangs.
   on(window, "load", start);
-  setTimeout(start, 2600);
+  setTimeout(start, 600);
+  // Absolute failsafe: force-hide the preloader even if everything above stalls.
+  setTimeout(hidePreloader, 1800);
 
   /* ----------------------------------------------------------------
      Reveal on scroll (IntersectionObserver — reliable base layer)
      ---------------------------------------------------------------- */
   var revealEls = $all(".reveal, .mask, [data-reveal]");
+
+  function showReveal(el) {
+    if (el.classList.contains("is-visible")) return;
+    var delay = parseInt(el.getAttribute("data-delay") || "0", 10);
+    if (delay) el.style.transitionDelay = delay + "ms";
+    el.classList.add("is-visible");
+    var drop = function () {
+      el.classList.remove("reveal-pending");
+      // Hard guarantee the element lands in its natural position even if the
+      // class-based cascade is somehow defeated (stale styles, odd embeds):
+      // clear the directional offset once the reveal has played.
+      el.style.transform = "none";
+      el.style.opacity = "1";
+      el.style.filter = "none";
+    };
+    el.addEventListener("transitionend", drop, { once: true });
+    setTimeout(drop, 1400 + delay);
+  }
+
   if ("IntersectionObserver" in window && !reduced) {
-    // Promote to a GPU layer ONLY while pending (about to animate). After the
-    // reveal completes we drop .reveal-pending so the layer is released —
-    // avoids dozens of permanent compositor layers (mobile memory win).
     $all(".reveal").forEach(function (el) { el.classList.add("reveal-pending"); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var el = entry.target;
-          var delay = parseInt(el.getAttribute("data-delay") || "0", 10);
-          if (delay) el.style.transitionDelay = delay + "ms";
-          el.classList.add("is-visible");
-          io.unobserve(el);
-          // release the compositor layer once the transition has run
-          var drop = function () { el.classList.remove("reveal-pending"); };
-          el.addEventListener("transitionend", drop, { once: true });
-          setTimeout(drop, 1400 + delay); // fallback if transitionend doesn't fire
-        }
+        if (entry.isIntersecting) { showReveal(entry.target); io.unobserve(entry.target); }
       });
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
+
+    // --- Safety nets so nothing can stay stuck hidden/misaligned ---
+    // (a) On scroll, reveal anything already in the viewport even if IO is laggy.
+    var sweep = function () {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      revealEls.forEach(function (el) {
+        if (el.classList.contains("is-visible")) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) { showReveal(el); io.unobserve(el); }
+      });
+    };
+    on(window, "scroll", sweep, { passive: true });
+    on(window, "resize", sweep, { passive: true });
+    // (b) Run one sweep after layout settles, and a hard backstop that reveals
+    //     EVERYTHING after 2.5s regardless — IO can misbehave in some embeds.
+    setTimeout(sweep, 300);
+    setTimeout(function () { revealEls.forEach(showReveal); }, 2500);
   } else {
     revealEls.forEach(function (el) { el.classList.add("is-visible"); });
   }
