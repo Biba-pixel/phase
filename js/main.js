@@ -314,11 +314,12 @@
     on(window, "scroll", revealTab, { passive: true });
     revealTab();
 
-    // Map each content section to the tab that should light up for it
+    // Map each content section to the tab that should light up for it.
+    // (The center "Enquire" tab is an external WhatsApp link, so no section maps to it.)
     var sectionToTab = {
-      hero: null, philosophy: "phases", phases: "phases",
-      schedule: "schedule", pricing: "schedule",
-      method: "about", about: "about", gallery: "about", contact: "contact"
+      philosophy: "method", method: "method",
+      workshops: "workshops",
+      about: "about", contact: "contact"
     };
     // Ordered list of sections we track, top→bottom
     var tracked = sections.filter(function (s) {
