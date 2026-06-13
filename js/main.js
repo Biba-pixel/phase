@@ -260,24 +260,6 @@
   }
 
   /* ----------------------------------------------------------------
-     Map facade — load Google Map only on click (perf + privacy)
-     ---------------------------------------------------------------- */
-  var mapFacade = $("#mapFacade");
-  if (mapFacade) {
-    on(mapFacade, "click", function () {
-      var src = mapFacade.getAttribute("data-map");
-      var iframe = document.createElement("iframe");
-      iframe.setAttribute("title", "PHASE studio location in Jbeil, Lebanon");
-      iframe.setAttribute("src", src);
-      iframe.setAttribute("loading", "lazy");
-      iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
-      iframe.setAttribute("allowfullscreen", "");
-      var parent = mapFacade.parentNode;
-      parent.replaceChild(iframe, mapFacade);
-    });
-  }
-
-  /* ----------------------------------------------------------------
      Active section in nav
      ---------------------------------------------------------------- */
   var sections = $all("main section[id]");
