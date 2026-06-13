@@ -1502,12 +1502,32 @@ ul { list-style: none; }
     --section-y: clamp(3.6rem, 11vw, 5rem);
   }
 
-  /* Hero: keep the wordmark grand but guaranteed to fit, with room to breathe.
-     Tighter top/bottom padding so content never reaches the scroll cue on
-     short phones. */
-  .hero__inner { padding-block: 6rem 3rem; }
-  .hero__word { font-size: clamp(3.4rem, 21vw, 6rem); }
-  .hero__sub { max-width: 36ch; }
+  /* Hero: keep the wordmark grand but GUARANTEED to fit even at 320px.
+     Floor is small + vw-driven so 5 letters never exceed the viewport; the
+     word also self-constrains so a letter can't be clipped. */
+  /* The hero is a grid; its content track can blow out to min-content width
+     (unwrappable wordmark) and overflow. min-width:0 + 100vw cap forces it to
+     the viewport so nothing is ever clipped. */
+  .hero { min-width: 0; }
+  .hero__inner {
+    padding-block: 6rem 3rem;
+    max-width: 100vw;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+  .hero__word {
+    font-size: min(16vw, 5rem);
+    max-width: 100%;
+    flex-wrap: nowrap;
+  }
+  .hero__tag {
+    max-width: 100%;
+    flex-wrap: wrap;
+    text-wrap: balance;
+  }
+  .hero__eyebrow { max-width: 100%; }
+  .hero__sub { max-width: 38ch; }
   .hero__cta { width: 100%; }
   .hero__cta .btn { width: 100%; max-width: 340px; }
 
@@ -1678,4 +1698,35 @@ ul { list-style: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .tabbar { transition: none; }
+}
+
+/* ---------------------------------------------------------------------
+   25. Mobile alignment safety (≤760px)
+   The scroll-reveal system uses transforms that, if a reveal fails to fire
+   on a phone, can leave content shifted off-screen ("cut off"). On mobile we
+   DON'T rely on JS at all: every reveal is shown and squarely positioned by
+   CSS alone. Animations still play on desktop where they're reliable.
+   Also hard-guards against any horizontal overflow.
+   --------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  /* Never allow sideways scrolling / cut-off, whatever a child does */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
+  /* Force every reveal to its final, aligned state regardless of JS/IO/GSAP */
+  .js .reveal,
+  .js .reveal.from-left,
+  .js .reveal.from-right,
+  .js .reveal.from-scale,
+  .js .mask > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+
+  /* The About portrait is decorative on mobile — pin it flush in the grid */
+  .about__portrait { transform: none !important; left: auto !important; margin-inline: 0; }
+
+  /* Decorative layers that intentionally overflow must stay clipped, not scroll */
+  .hero, .philosophy, .method, .about, .contact, .marquee { overflow: hidden; }
 }
